@@ -53,7 +53,7 @@ export default function ProcessSection() {
         if (i < homeData.process.length - 1) {
           if (!isMobile) {
             tl.to(progressRef.current, {
-              width: `${(i + 1) * 25}%`,
+              width: `${(i + 1) * 20}%`, // 5 steps, so each gap is 20%
               duration: 1,
               ease: "power1.inOut"
             }, ">-0.1");
@@ -92,32 +92,17 @@ export default function ProcessSection() {
           </p>
         </div>
 
-        {/* Desktop Timeline Row */}
-        <div className="hidden md:block relative mb-16 px-8">
-          {/* Base Track */}
-          <div className="absolute top-1/2 left-8 right-8 h-[2px] bg-zinc-400 dark:bg-zinc-700 -translate-y-1/2" />
-          {/* Active Progress */}
+        {/* Unified Responsive Timeline */}
+        <div className="relative pt-12">
+          {/* Desktop Horizontal Track (Hidden on mobile) */}
+          <div className="hidden md:block absolute top-[16px] left-[10%] right-[10%] h-[2px] bg-zinc-200 dark:bg-zinc-800" />
           <div 
             ref={progressRef} 
-            className="absolute top-1/2 left-8 h-[2px] bg-[#e87a3e] -translate-y-1/2 origin-left z-10" 
+            className="hidden md:block absolute top-[16px] left-[10%] h-[2px] bg-[#e87a3e] origin-left z-10" 
             style={{ width: 0 }}
           />
-          
-          <div className="grid grid-cols-5 relative">
-            {homeData.process.map((_, i) => (
-              <div key={i} className="flex justify-center">
-                <div 
-                  ref={el => dotsRef.current[i] = el}
-                  className="w-3.5 h-3.5 rounded-full bg-borderContent relative z-20 border-2 border-surface" 
-                />
-              </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Process Content Grid */}
-        <div className="relative">
-          {/* Mobile Vertical Track - Only visible on small screens */}
+          {/* Mobile Vertical Track (Hidden on desktop) */}
           <div className="md:hidden absolute left-[15px] top-4 bottom-4 w-[1px] bg-zinc-200 dark:bg-zinc-800" />
           <div 
             ref={vProgressRef} 
@@ -125,14 +110,14 @@ export default function ProcessSection() {
             style={{ height: 0 }}
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-0 relative">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-0 relative">
             {homeData.process.map((item, index) => (
               <div
                 key={index}
                 ref={el => itemsRef.current[index] = el}
-                className="group relative flex flex-col pl-12 md:pl-0 md:p-6 md:text-center border-l-0 md:border-transparent"
+                className="group relative flex flex-col pl-12 md:pl-0 md:p-6 md:text-center"
               >
-                {/* Custom Dot for horizontal/vertical logic */}
+                {/* Unified Animated Dot */}
                 <div 
                   ref={el => dotsRef.current[index] = el}
                   className="absolute left-[9px] md:left-1/2 md:-translate-x-1/2 top-4 md:top-[-45px] w-3.5 h-3.5 rounded-full bg-borderContent z-20 border-2 border-surface" 
